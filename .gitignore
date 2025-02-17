@@ -1,7 +1,0 @@
-venv/
-__pycache__/
-.DS_Store
-*.pyc
-$Temp
-dist/*
-build/*
