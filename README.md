@@ -17,7 +17,7 @@ This project was created with the extensive use of OpenAI's GPT and Reasoning mo
 Abrela works with transition logic: **default transitions** are just the transitions to the next track on any given album, and **custom transitions** are manually-defined parameters that allow transitions from any track to any other track (so long as a custom transition is defined). Currently, custom transitions only include slicing, linear fades, and overlays. Abrela is configured to chain transitions automatically, so each transition is handled "in a vacuum" and the final product is built as a series of these transitions. As more custom transitions are added, this will enable an exponentially large number of potential combinations of transitions selectable by users.
 
 ## Current List of Custom Transitions
-[See list here](link)
+[See list here](https://github.com/solbus/abrela/blob/main/transitions.md)
 
 ## Setup & Usage Guide
 1. Download KGLW bootlegger albums from the [bootleg gizzard Bandcamp page](https://bootleggizzard.bandcamp.com/) - MP3 format (MP3 320 recommended, though V0 should work in theory - untested)

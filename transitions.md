@@ -4,11 +4,7 @@ List of all custom transitions available in Abrela **as of version `1.0`**.
 
 Currently, the only custom transitions available are from Nonagon Infinity - **custom transitions from other albums** and **cross-album custom transitions** will be added in future versions.
 
----
-
 Remember that Abrela supports chaining any mix of custom **and** default transitions, and that every track's default transition is always available! Default transitions are **not** listed below.
-
----
 
 **Bolded track + album titles** indicate tracks that also have their own custom transitions available.
 
