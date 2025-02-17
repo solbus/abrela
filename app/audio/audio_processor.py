@@ -16,6 +16,8 @@ vendor_dir = os.path.join(base_dir, 'vendor')
 # Add the 'vendor' directory to the system PATH
 os.environ["PATH"] = vendor_dir + os.pathsep + os.environ.get("PATH", "")
 
+"""
+This was just for testing. Keeping in case I break something.
 import subprocess
 
 try:
@@ -26,6 +28,7 @@ try:
     print("ffmpeg and ffprobe are accessible.")
 except Exception as e:
     print(f"Error accessing ffmpeg or ffprobe: {e}")
+"""
 
 # -------------------
 # 1. Loading / Saving
