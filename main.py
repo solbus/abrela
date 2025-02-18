@@ -1,3 +1,17 @@
+# This is to make sure FFmpeg doesn't make terminals pop up during audio processing
+import subprocess
+real_popen = subprocess.Popen
+
+def no_console_popen(*args, **kwargs):
+    if os.name == 'nt':
+        si = subprocess.STARTUPINFO()
+        si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        kwargs["startupinfo"] = si
+        kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW
+    return real_popen(*args, **kwargs)
+
+subprocess.Popen = no_console_popen
+
 import os
 import sys
 from PyQt6.QtWidgets import QApplication
