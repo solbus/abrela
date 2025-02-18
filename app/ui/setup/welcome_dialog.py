@@ -72,7 +72,7 @@ class WelcomeDialog(QDialog):
             "<b>A:</b> \"No thanks! Let's keep this shit underground baby.\"<br>"
             "<b>Also:</b> \"The licence only extends to physical copies of the music.\"<br><br>"
             "---<br><br>"
-            "<b>GPL v3 Notice</b> - link to full license: <br>"
+            "<b>GPL v3 Notice</b> - link to full license: <a href=\"https://github.com/solbus/abrela/blob/main/LICENSE\">https://github.com/solbus/abrela/blob/main/LICENSE</a><br>"
             "This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br><br>"
             "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.<br><br>"
             "You should have received a copy of the GNU General Public License along with this program. If not, see <a href=\"https://www.gnu.org/licenses/\">https://www.gnu.org/licenses/</a>."
