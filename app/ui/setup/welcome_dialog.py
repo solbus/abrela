@@ -43,7 +43,7 @@ class WelcomeDialog(QDialog):
             "<b>2.</b> Extract each album's ZIP - this will create one folder for each album (you can delete the ZIPs after).<br>"
             "<b>3.</b> After extracting, move all of the album folders to one shared folder (optional, but recommended).<br>"
             "<b>4.</b> Close this welcome message and continue in the main window.<br><br>"
-            "Tutorial video:<br><br>"
+            "Tutorial video: <a href=\"https://youtu.be/AEIggCPhB8k\">https://youtu.be/AEIggCPhB8k</a><br><br>"
             "---<br><br>"
             "Abrela works with transition logic, specifically <b>default</b> and <b>custom</b> transitions:<br>"
             "- <b>Default transitions</b> are all available - they're just the next track on any given album.<br>"

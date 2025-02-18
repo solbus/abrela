@@ -3,6 +3,8 @@ An unofficial & fan-made choose-your-own-adventure MP3 editor & mixer designed t
 
 Current version: **`1.0`** (initial release)
 
+Tutorial video for setup & usage: https://youtu.be/AEIggCPhB8k
+
 ## Project Dependencies
 - [**PyQt6**](https://www.riverbankcomputing.com/static/Docs/PyQt6/) (6.8.0) - *UI*
 - [**Pydub**](https://github.com/jiaaro/pydub) (0.25.1) and [**FFmpeg**](https://ffmpeg.org/download.html) (`ffmpeg.exe` and `ffprobe.exe` from [gyan.dev](https://www.gyan.dev) `ffmpeg-2025-02-13-git-19a2d26177-essentials_build.7z`) - *MP3 processing*
