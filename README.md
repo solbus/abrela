@@ -1,7 +1,7 @@
 # Abrela
 An unofficial & fan-made choose-your-own-adventure MP3 editor & mixer designed to work with the King Gizzard & The Lizard Wizard bootlegger albums.
 
-Current version: **`1.0`** (initial release)
+Current version: **`1.0`** (initial release) - download on the [Releases page](https://github.com/solbus/abrela/releases)
 
 Tutorial video for setup & usage: https://youtu.be/AEIggCPhB8k
 
