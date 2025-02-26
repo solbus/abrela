@@ -31,7 +31,7 @@ class WelcomeDialog(QDialog):
         info_label.setOpenExternalLinks(True)
         info_label.setWordWrap(True)
         info_label.setText(
-            "<b>Version 1.0</b><br><br>"
+            "<b>Version 1.0.1</b><br><br>"
             "Abrela works with the King Gizzard & The Lizard Wizard bootlegger albums from<br>"
             "<a href=\"https://bootleggizzard.bandcamp.com\">https://bootleggizzard.bandcamp.com</a>.<br>"
             "It is an unofficial & fan-made choose-your-own-adventure MP3 editor & mixer.<br><br>"
