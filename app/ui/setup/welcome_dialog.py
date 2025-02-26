@@ -49,7 +49,7 @@ class WelcomeDialog(QDialog):
             "- <b>Default transitions</b> are all available - they're just the next track on any given album.<br>"
             "- <b>Custom transitions</b> are all defined manually, so future versions of Abrela will include more of them.<br>"
             "- Custom transitions will only be available if you have downloaded the albums with those transitions.<br><br>"
-            "List of all custom transitions currently available:<br>"
+            "<b>List of all custom transitions currently available:</b><br>"
             "<a href=\"https://github.com/solbus/abrela/blob/main/TRANSITIONS.md\">https://github.com/solbus/abrela/blob/main/TRANSITIONS.md</a><br><br>"
             "If you set up Abrela with just some of the albums and then want to add more,<br>"
             "click the <b>Start Over</b> button under the list of all the albums.<br><br>"
