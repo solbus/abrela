@@ -51,7 +51,7 @@ def build_segments(timeline_entries, progress_callback=None):
 
         # Helper function
         def is_custom(td):
-            return (td.get("type") == "Studio")
+            return td.get("type") in ("Studio", "Infinity")
 
         # Determine if incoming transition is custom or default
         if i == 0:
