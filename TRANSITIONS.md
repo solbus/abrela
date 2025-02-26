@@ -1,4 +1,4 @@
-List of all custom transitions available in Abrela **as of version `x.x`**
+List of all custom transitions available in Abrela **as of version `1.0.1`**
 
 ---
 
