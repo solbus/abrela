@@ -13,7 +13,7 @@ Tutorial video for setup & usage: https://youtu.be/AEIggCPhB8k
 - [**PyInstaller**](https://pyinstaller.org/en/stable/) (6.12.0) - *Packaging release builds*
 
 ## Disclaimer
-This project was created with the extensive use of OpenAI's GPT and Reasoning models available on ChatGPT. Now that the bulk of the initial coding is complete, I plan to begin estimating the negative environmental impact of the use of AI in making Abrela, and to work/make contributions to offset it. I have not done this yet, but as a start, I have made a modest contribution to the [Solar Electric Light Fund](https://www.self.org/), a non-profit organization that implements solar electricity infrastructure for people without access to an electrical grid.
+This project was created with the extensive use of OpenAI's GPT and Reasoning models available on ChatGPT. Now that the bulk of the initial coding is complete, I plan to begin estimating the negative environmental impact of the use of AI in making Abrela, and to work/make contributions to offset it. I have not done this yet, but as a start, I made a contribution to the [Solar Electric Light Fund](https://www.self.org/), a non-profit organization that implements solar electricity infrastructure for people without access to an electrical grid.
 
  Though I have tested the code rigorously and acted as a kind of project manager putting it all together, currently it has not been reviewed by a human expert in Python programming, as I myself am not a programming expert. Abrela makes no connections to the internet and no user information is stored, except for optional settings related to remembering local filepaths to make reusing it easier, and these settings are stored locally.
 
