@@ -37,6 +37,7 @@ Currently, custom transitions only include **slicing, linear fades, and overlays
 9. Select a series of transitions
 10. Click the "Done" button
 11. Select a save location
+12. To update the album list later, click the **Update Data** button at the bottom of the album view and paste or select a new `albums.json`. The file is saved to `%APPDATA%/Abrela/albums.json` so it persists across development and packaged builds.
 
 ## A friendly reminder
 The spirit of the KGLW bootleggers is in **physical media**, so Abrela is intended for personal use only, or for those experimenting with intentions to create physical media.
