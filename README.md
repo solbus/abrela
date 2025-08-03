@@ -1,7 +1,7 @@
 # Abrela
 An unofficial & fan-made choose-your-own-adventure MP3 editor & mixer designed to work with the King Gizzard & The Lizard Wizard bootlegger albums.
 
-**Current version: `1.0.1`** - download the EXE on the [Releases page](https://github.com/solbus/abrela/releases) - see [changelog](https://github.com/solbus/abrela/blob/main/CHANGELOG.md) for version update notes
+**Current version: `1.0.2`** - download the EXE on the [Releases page](https://github.com/solbus/abrela/releases) - see [changelog](https://github.com/solbus/abrela/blob/main/CHANGELOG.md) for version update notes
 
 **NOTE:** I have not yet obtained a code signing certificate for the packaged EXE, and Windows will likely warn you that the EXE is potentially unsafe until I do. I am looking into solutions for this, but as of right now, you will probably have to manually bypass a warning if you want to try Abrela. **Please feel free to reach out to me** if you have any questions about this.
 
