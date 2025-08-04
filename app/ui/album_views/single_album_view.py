@@ -4,17 +4,16 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import (QHBoxLayout, QLabel, QListWidget, QListWidgetItem, QPushButton, QVBoxLayout, QWidget)
 from app.core.image_cache_manager import cache_image_if_needed
 
+
 class SingleAlbumView(QWidget):
     back_clicked = pyqtSignal()
     track_clicked = pyqtSignal(int)  # emit the track index (1-based)
 
-    def __init__(self, albums_manager, album_title, shared_or_separate, shared_directory, separate_directories):
+    def __init__(self, albums_manager, album_title, shared_directory):
         super().__init__()
         self.albums_manager = albums_manager
         self.album_title = album_title
-        self.shared_or_separate = shared_or_separate
         self.shared_directory = shared_directory
-        self.separate_directories = separate_directories
         self.last_track_list_scroll_pos = 0
 
         album = self.get_album_data(album_title)
@@ -32,13 +31,11 @@ class SingleAlbumView(QWidget):
         # Attempt to cache and load a 500x500 image
         large_art_path = cache_image_if_needed(
             album,
-            self.shared_or_separate,
             self.shared_directory,
-            self.separate_directories,
             width=500,
             height=500,
             format="JPG",
-            quality=95
+            quality=95,
         )
 
         art_label = QLabel()

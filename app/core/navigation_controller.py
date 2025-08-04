@@ -14,14 +14,12 @@ class NavigationController:
         self.main_window.last_all_albums_scroll_pos = self.main_window.all_albums_view.get_scroll_position()
 
         from app.ui.album_views.single_album_view import SingleAlbumView
-        # Pull runtime state from setup_flow_controller
         c = self.main_window.setup_flow_controller
+        directory = c.current_directory or c.settings_manager.settings.get("shared_directory")
         self.main_window.single_album_view = SingleAlbumView(
             albums_manager=c.albums_manager,
             album_title=album_title,
-            shared_or_separate=c.shared_or_separate,
-            shared_directory=c.current_shared_directory or c.settings_manager.settings.get("shared_directory"),
-            separate_directories=c.current_separate_directories or c.settings_manager.settings.get("separate_directories", {})
+            shared_directory=directory,
         )
         self.main_window.single_album_view.back_clicked.connect(self.on_single_album_back)
         self.main_window.single_album_view.track_clicked.connect(self.on_track_clicked)
@@ -44,9 +42,7 @@ class NavigationController:
             settings_manager=c.settings_manager,
             current_album_title=current_album_title,
             current_track_index=track_index,
-            shared_or_separate=c.shared_or_separate,
-            shared_directory=c.current_shared_directory or c.settings_manager.settings.get("shared_directory"),
-            separate_directories=c.current_separate_directories or c.settings_manager.settings.get("separate_directories", {})
+            available_albums=[a['title'] for a in c.available_albums],
         )
         self.main_window.transitions_view.back_clicked.connect(self.on_transitions_back)
         self.main_window.transitions_view.done_clicked.connect(self.on_transitions_done)
@@ -68,9 +64,7 @@ class NavigationController:
 
         # Add file_path to each track entry
         c = self.main_window.setup_flow_controller
-        shared_or_separate = c.shared_or_separate
-        shared_directory = c.current_shared_directory or c.settings_manager.settings.get("shared_directory")
-        separate_directories = c.current_separate_directories or c.settings_manager.settings.get("separate_directories", {})
+        shared_directory = c.current_directory or c.settings_manager.settings.get("shared_directory")
 
         from app.core.transitions_logic import find_track
         import os
@@ -79,18 +73,9 @@ class NavigationController:
             if entry['type'] == 'track':
                 album_title = entry['album_title']
                 track_title = entry['track_title']
-                # Find the corresponding track in albums_manager
                 album, track_data = find_track(self.main_window.albums_manager, album_title, track_title)
                 track_file = track_data['track_file']
-
-                # Construct the full file path
-                if shared_or_separate == "shared":
-                    # album['directory'] gives the subfolder name inside shared_directory
-                    file_path = os.path.join(shared_directory, album['directory'], track_file)
-                else:
-                    # separate_directories[album_title] gives the path to that album's directory
-                    file_path = os.path.join(separate_directories[album_title], track_file)
-
+                file_path = os.path.join(shared_directory, album['directory'], track_file)
                 entry['file_path'] = file_path
 
         self.main_window.save_view = SaveView(timeline_entries=timeline_entries)

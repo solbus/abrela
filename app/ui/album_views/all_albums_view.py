@@ -53,17 +53,13 @@ class AlbumItemWidget(QWidget):
 class AllAlbumsView(QWidget):
     album_clicked = pyqtSignal(str)
 
-    def __init__(self, albums_manager, settings_manager, flow_controller, all_or_some, selected_albums, shared_or_separate, shared_directory=None, separate_directories=None):
+    def __init__(self, albums_manager, settings_manager, flow_controller, albums, shared_directory):
         super().__init__()
         self.albums_manager = albums_manager
         self.settings_manager = settings_manager
         self.flow_controller = flow_controller
-        self.all_or_some = all_or_some
-        self.selected_albums = selected_albums
-        self.shared_or_separate = shared_or_separate
-
-        self.shared_directory = shared_directory if shared_directory is not None else self.settings_manager.settings.get("shared_directory", None)
-        self.separate_directories = separate_directories if separate_directories else self.settings_manager.settings.get("separate_directories", {})
+        self.albums = albums
+        self.shared_directory = shared_directory
 
         self.main_layout = QVBoxLayout()
         self.main_layout.setContentsMargins(20, 20, 20, 20)
@@ -109,19 +105,13 @@ class AllAlbumsView(QWidget):
         self.container_layout.setContentsMargins(0, 0, 0, 0)
         self.container_layout.setSpacing(30)
 
-        all_albums = self.albums_manager.get_albums()
-        if self.all_or_some == "all":
-            display_albums = all_albums
-        else:
-            display_albums = [a for a in all_albums if a['title'] in self.selected_albums]
-
         categories = {
             "Live": [],
             "Compilation": [],
             "Studio": []
         }
 
-        for album in display_albums:
+        for album in self.albums:
             album_type = album.get('type', '')
             if album_type in categories:
                 categories[album_type].append(album)

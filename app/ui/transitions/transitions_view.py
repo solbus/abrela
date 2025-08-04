@@ -18,16 +18,13 @@ class TransitionsView(QWidget):
     done_clicked = pyqtSignal()
 
     def __init__(self, albums_manager, settings_manager, current_album_title,
-                 current_track_index, shared_or_separate, shared_directory,
-                 separate_directories):
+                 current_track_index, available_albums):
         super().__init__()
         self.albums_manager = albums_manager
         self.settings_manager = settings_manager
         self.current_album_title = current_album_title
         self.current_track_index = current_track_index
-        self.shared_or_separate = shared_or_separate
-        self.shared_directory = shared_directory
-        self.separate_directories = separate_directories
+        self.available_albums = available_albums
 
         self.timeline_entries = load_initial_timeline(self.albums_manager, self.current_album_title, self.current_track_index)
 
@@ -281,10 +278,7 @@ class TransitionsView(QWidget):
         Returns a list of album titles the user actually selected if in 'some' mode;
         or returns [] if the user chose 'all' (to indicate no filtering).
         """
-        if self.settings_manager.settings.get("all_or_some") == "all":
-            return []
-        else:
-            return self.settings_manager.settings.get("selected_albums", [])
+        return self.available_albums
 
     def update_timeline(self):
         segs = compute_segments_from_timeline(self.timeline_entries)

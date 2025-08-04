@@ -6,10 +6,7 @@ from app.core.file_verifier import FileVerifier
 from app.core.setup_flow_controller import SetupFlowController
 from app.core.navigation_controller import NavigationController
 
-from app.ui.setup.initial_questions import InitialQuestionsStep
-from app.ui.setup.select_albums import SelectAlbumsStep
 from app.ui.setup.shared_directory import SharedDirectoryStep
-from app.ui.setup.separate_directories import SeparateDirectoriesStep
 from app.ui.setup.loading_screen import LoadingScreen
 
 class MainWindow(QMainWindow):
@@ -33,35 +30,18 @@ class MainWindow(QMainWindow):
         self.navigation_controller = NavigationController(self)
 
         # UI Steps
-        self.initial_step = InitialQuestionsStep(parent=self)
-        self.select_albums_step = SelectAlbumsStep(
-            albums_manager=self.albums_manager,
-            flow_controller=self.setup_flow_controller,
-            parent=self
-        )
         self.shared_directory_step = SharedDirectoryStep(
-            flow_controller=self.setup_flow_controller, 
-            parent=self
-        )
-        self.separate_directories_step = SeparateDirectoriesStep(
-            albums_manager=self.albums_manager,
             flow_controller=self.setup_flow_controller,
             parent=self
         )
         self.loading_screen = LoadingScreen(parent=self)
 
         # Add steps to the stack
-        self.stack.addWidget(self.initial_step)
-        self.stack.addWidget(self.select_albums_step)
         self.stack.addWidget(self.shared_directory_step)
-        self.stack.addWidget(self.separate_directories_step)
         self.stack.addWidget(self.loading_screen)
 
         # Connect signals from steps to SetupFlowController methods
-        self.initial_step.continue_clicked.connect(self.setup_flow_controller.handle_initial_questions_continue)
-        self.select_albums_step.continue_clicked.connect(self.setup_flow_controller.handle_select_albums_continue)
-        self.shared_directory_step.continue_clicked.connect(self.setup_flow_controller.handle_shared_directory_continue)
-        self.separate_directories_step.continue_clicked.connect(self.setup_flow_controller.handle_separate_directories_continue)
+        self.shared_directory_step.continue_clicked.connect(self.setup_flow_controller.handle_directory_continue)
 
         # Variables used by NavigationController
         self.last_all_albums_scroll_pos = 0
@@ -86,24 +66,12 @@ class MainWindow(QMainWindow):
         if window_settings.get("maximized", False):
             self.showMaximized()
 
-    def show_initial_questions(self):
-        self.stack.setCurrentWidget(self.initial_step)
-
-    def show_select_albums_step(self):
-        self.stack.setCurrentWidget(self.select_albums_step)
-
-    def show_shared_directory_step(self, prefill=None):
+    def show_directory_step(self, prefill=None):
         if prefill:
             self.shared_directory_step.dir_edit.setText(prefill)
+        else:
+            self.shared_directory_step.dir_edit.clear()
         self.stack.setCurrentWidget(self.shared_directory_step)
-
-    def show_separate_directories_step(self, albums, prefill=None):
-        self.separate_directories_step.set_albums(albums)
-        if prefill:
-            for title, path in prefill.items():
-                if title in self.separate_directories_step.album_lineedits:
-                    self.separate_directories_step.album_lineedits[title].setText(path)
-        self.stack.setCurrentWidget(self.separate_directories_step)
 
     def closeEvent(self, event: QCloseEvent):
         if self.isMaximized():

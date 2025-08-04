@@ -24,7 +24,7 @@ def get_cached_image_path(album_title: str, width: int, height: int) -> str:
     cache_filename = f"{slug}_{width}x{height}.jpg"  # or .png
     return os.path.join(get_cache_dir(), cache_filename)
 
-def cache_image_if_needed(album, shared_or_separate, shared_directory, separate_directories, width, height, format="JPG", quality=95):
+def cache_image_if_needed(album, shared_directory, width, height, format="JPG", quality=95):
     """
     Ensure there's a cached image for the given album at the specified size.
     If not cached, it will create and save it.
@@ -38,7 +38,7 @@ def cache_image_if_needed(album, shared_or_separate, shared_directory, separate_
         return cache_path
 
     # Get original path
-    original_path = get_original_art_path(album, shared_or_separate, shared_directory, separate_directories)
+    original_path = get_original_art_path(album, shared_directory)
     if not os.path.isfile(original_path):
         return ""
 
