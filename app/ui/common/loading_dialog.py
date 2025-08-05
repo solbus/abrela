@@ -19,6 +19,7 @@ class LoadingDialog(QDialog):
 
         self.progress = QProgressBar()
         self.progress.setRange(0, 0)  # Busy indicator
-        layout.addWidget(self.progress)
+        self.progress.setFixedWidth(200)
+        layout.addWidget(self.progress, alignment=Qt.AlignmentFlag.AlignCenter)
 
         self.setLayout(layout)
