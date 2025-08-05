@@ -335,9 +335,11 @@ class TransitionsView(QWidget):
     # ------------------------------------------------------------------
     def on_process_play_clicked(self):
         """Generate the final mix to the cache directory and play it."""
-        if self.player_dialog is not None:
-            self.player_dialog.close()
-            self.player_dialog = None
+        main_window = self.window()
+        if main_window and getattr(main_window, "player_dialog", None):
+            main_window.player_dialog.close()
+            main_window.player_dialog = None
+        self.player_dialog = None
         # Prepare timeline entries with file paths
         timeline_copy = deepcopy(self.timeline_entries)
         shared_directory = self.settings_manager.settings.get("shared_directory")
@@ -377,5 +379,7 @@ class TransitionsView(QWidget):
             main_window.cached_timeline_entries = deepcopy(timeline_copy)
 
         self.player_dialog = AudioPlayerDialog(out_path, parent=main_window)
+        if main_window:
+            main_window.player_dialog = self.player_dialog
         self.player_dialog.show()
 

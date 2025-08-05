@@ -32,6 +32,8 @@ class MainWindow(QMainWindow):
         # Cached mix info for Process & Play feature
         self.cached_mix_path = None
         self.cached_timeline_entries = None
+        # Reference to any active audio player dialog
+        self.player_dialog = None
 
         # UI Steps
         self.shared_directory_step = SharedDirectoryStep(

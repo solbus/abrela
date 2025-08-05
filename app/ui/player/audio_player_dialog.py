@@ -146,4 +146,7 @@ class AudioPlayerDialog(QDialog):
 
     def closeEvent(self, event):  # type: ignore[override]
         self.media_player.stop()
+        parent = self.parent()
+        if parent and hasattr(parent, "player_dialog"):
+            parent.player_dialog = None
         super().closeEvent(event)

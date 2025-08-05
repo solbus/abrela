@@ -1,5 +1,11 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QProgressBar
+from PyQt6.QtWidgets import (
+    QDialog,
+    QVBoxLayout,
+    QLabel,
+    QProgressBar,
+    QHBoxLayout,
+)
 
 
 class LoadingDialog(QDialog):
@@ -15,11 +21,20 @@ class LoadingDialog(QDialog):
 
         self.label = QLabel("Processing...\nPlease wait, this might take a minute or two.")
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(self.label)
+        self.label.setWordWrap(True)
+        self.label.setFixedWidth(200)
+        layout.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignCenter)
 
         self.progress = QProgressBar()
         self.progress.setRange(0, 0)  # Busy indicator
         self.progress.setFixedWidth(200)
-        layout.addWidget(self.progress, alignment=Qt.AlignmentFlag.AlignCenter)
 
+        progress_row = QHBoxLayout()
+        progress_row.addStretch()
+        progress_row.addWidget(self.progress)
+        progress_row.addStretch()
+        layout.addLayout(progress_row)
+
+        layout.setSizeConstraint(QVBoxLayout.SizeConstraint.SetFixedSize)
         self.setLayout(layout)
+        self.adjustSize()
