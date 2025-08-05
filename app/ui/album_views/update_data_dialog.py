@@ -19,6 +19,18 @@ class UpdateDataDialog(QDialog):
         version_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(version_label)
 
+        # Link label with external link enabled
+        link_label = QLabel(
+            "Check for a newer version here:<br>"
+            "<a href=\"https://github.com/solbus/abrela/blob/main/app/albums.json\">"
+            "https://github.com/solbus/abrela/blob/main/app/albums.json</a>"
+        )
+        link_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        link_label.setTextFormat(Qt.TextFormat.RichText)
+        link_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
+        link_label.setOpenExternalLinks(True)
+        layout.addWidget(link_label)
+
         self.text_edit = QTextEdit()
         self.text_edit.setPlaceholderText("Paste new albums.json contents here")
         self.text_edit.setMinimumHeight(200)
@@ -45,7 +57,12 @@ class UpdateDataDialog(QDialog):
         self.setLayout(layout)
 
     def select_file(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Select albums.json", "", "JSON Files (*.json);;All Files (*)")
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select albums.json",
+            "",
+            "JSON Files (*.json);;All Files (*)"
+        )
         if file_path:
             self.selected_file = file_path
 
