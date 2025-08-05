@@ -107,11 +107,10 @@ class TransitionsView(QWidget):
         timeline_layout.addWidget(self.total_label)
 
         bottom_hlayout = QHBoxLayout()
-        bottom_hlayout.addStretch(1)
         process_button = QPushButton("Process & Play")
         process_button.clicked.connect(self.on_process_play_clicked)
         bottom_hlayout.addWidget(process_button)
-        bottom_hlayout.addSpacing(20)
+        bottom_hlayout.addStretch(1)
         done_button = QPushButton("Done")
         done_button.clicked.connect(self.done_clicked.emit)
         bottom_hlayout.addWidget(done_button)
@@ -123,6 +122,8 @@ class TransitionsView(QWidget):
 
         self.populate_table()
         self.update_timeline()
+
+        self.player_dialog = None
 
     def update_current_track_info(self):
         album, track = get_current_track_data(self.albums_manager, self.current_album_title, self.current_track_index)
@@ -334,6 +335,9 @@ class TransitionsView(QWidget):
     # ------------------------------------------------------------------
     def on_process_play_clicked(self):
         """Generate the final mix to the cache directory and play it."""
+        if self.player_dialog is not None:
+            self.player_dialog.close()
+            self.player_dialog = None
         # Prepare timeline entries with file paths
         timeline_copy = deepcopy(self.timeline_entries)
         shared_directory = self.settings_manager.settings.get("shared_directory")
@@ -356,11 +360,11 @@ class TransitionsView(QWidget):
         self.thread = QThread(self)
         self.worker = MixWorker(timeline_copy, 'long_mp3', cache_dir)
         self.worker.moveToThread(self.thread)
-        self.worker.finished.connect(lambda: self.on_process_play_finished(cache_dir))
+        self.worker.finished.connect(lambda: self.on_process_play_finished(cache_dir, timeline_copy))
         self.thread.started.connect(self.worker.run)
         self.thread.start()
 
-    def on_process_play_finished(self, cache_dir):
+    def on_process_play_finished(self, cache_dir, timeline_copy):
         self.thread.quit()
         self.thread.wait()
         self.loading_dialog.close()
@@ -370,7 +374,7 @@ class TransitionsView(QWidget):
         main_window = self.window()
         if main_window:
             main_window.cached_mix_path = out_path
-            main_window.cached_timeline_entries = deepcopy(self.timeline_entries)
+            main_window.cached_timeline_entries = deepcopy(timeline_copy)
 
         self.player_dialog = AudioPlayerDialog(out_path, parent=main_window)
         self.player_dialog.show()

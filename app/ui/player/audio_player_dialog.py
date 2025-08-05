@@ -1,8 +1,8 @@
 from PyQt6.QtCore import Qt, QUrl, QPoint
 from PyQt6.QtWidgets import (
-    QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QToolTip
+    QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QToolTip,
+    QStyle, QStyleOptionSlider, QSlider
 )
-from PyQt6.QtWidgets import QSlider
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 
 from app.core.transitions_logic import ms_to_mmss
@@ -14,13 +14,38 @@ class SeekSlider(QSlider):
         super().__init__(Qt.Orientation.Horizontal, parent)
         self.setMouseTracking(True)
 
+    def _pixel_pos_to_range_value(self, x):
+        option = QStyleOptionSlider()
+        self.initStyleOption(option)
+        groove = self.style().subControlRect(
+            QStyle.ComplexControl.CC_Slider, option,
+            QStyle.SubControl.SC_SliderGroove, self
+        )
+        handle = self.style().subControlRect(
+            QStyle.ComplexControl.CC_Slider, option,
+            QStyle.SubControl.SC_SliderHandle, self
+        )
+        slider_min = groove.x()
+        slider_max = groove.right() - handle.width() + 1
+        x = max(slider_min, min(x, slider_max))
+        return QStyle.sliderValueFromPosition(
+            self.minimum(), self.maximum(), x - slider_min,
+            slider_max - slider_min, option.upsideDown
+        )
+
     def mouseMoveEvent(self, event):  # type: ignore[override]
         if self.maximum() > 0:
-            ratio = event.position().x() / max(1, self.width())
-            ratio = max(0.0, min(1.0, ratio))
-            ms = self.minimum() + ratio * (self.maximum() - self.minimum())
+            ms = self._pixel_pos_to_range_value(int(event.position().x()))
             QToolTip.showText(event.globalPosition().toPoint(), ms_to_mmss(ms), self)
         super().mouseMoveEvent(event)
+
+    def mousePressEvent(self, event):  # type: ignore[override]
+        if event.button() == Qt.MouseButton.LeftButton and self.maximum() > 0:
+            ms = self._pixel_pos_to_range_value(int(event.position().x()))
+            self.setValue(int(ms))
+            self.sliderMoved.emit(int(ms))
+            event.accept()
+        super().mousePressEvent(event)
 
 
 class AudioPlayerDialog(QDialog):
