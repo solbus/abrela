@@ -108,7 +108,7 @@ class TransitionsView(QWidget):
 
         bottom_hlayout = QHBoxLayout()
         bottom_hlayout.addStretch(1)
-        process_button = QPushButton("Process & Play")
+        process_button = QPushButton("Process and Play")
         process_button.clicked.connect(self.on_process_play_clicked)
         bottom_hlayout.addWidget(process_button)
         bottom_hlayout.addSpacing(20)

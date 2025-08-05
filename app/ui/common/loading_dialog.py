@@ -13,7 +13,7 @@ class LoadingDialog(QDialog):
         layout = QVBoxLayout()
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.label = QLabel("Processing...\nPlease wait, this might take a minute.")
+        self.label = QLabel("Processing...\nPlease wait, this might take a minute or two.")
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.label)
 
