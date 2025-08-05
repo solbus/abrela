@@ -1,9 +1,14 @@
 from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtWidgets import (
-    QCheckBox, QFileDialog, QHBoxLayout, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget
+    QCheckBox,
+    QFileDialog,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
 )
-
-from app.ui.setup.start_over_button import StartOverButton
 
 class SharedDirectoryStep(QWidget):
     continue_clicked = pyqtSignal(str, bool)  # directory, remember
@@ -17,11 +22,6 @@ class SharedDirectoryStep(QWidget):
         layout.setContentsMargins(20, 20, 20, 20)
         layout.setSpacing(10)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        top_button_layout = QHBoxLayout()
-        start_over_button = StartOverButton(self.flow_controller)
-        top_button_layout.addWidget(start_over_button, alignment=Qt.AlignmentFlag.AlignLeft)
-        layout.addLayout(top_button_layout)
 
         # Instruction label, centered
         label = QLabel("What folder do you have all the album folders in?<br><b>Important:</b> All ZIPs must be extracted first!")
