@@ -21,13 +21,14 @@ class LoadingDialog(QDialog):
 
         self.label = QLabel("Processing...\nPlease wait, this might take a minute or two.")
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.label.setWordWrap(True)
-        self.label.setFixedWidth(200)
+        self.label.setWordWrap(False)
+        self.label.setFixedWidth(234)
         layout.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignCenter)
 
         self.progress = QProgressBar()
         self.progress.setRange(0, 0)  # Busy indicator
         self.progress.setFixedWidth(200)
+        self.progress.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         progress_row = QHBoxLayout()
         progress_row.addStretch()

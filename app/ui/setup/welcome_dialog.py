@@ -31,7 +31,7 @@ class WelcomeDialog(QDialog):
         info_label.setOpenExternalLinks(True)
         info_label.setWordWrap(True)
         info_label.setText(
-            "<b>Version 1.0.2</b><br><br>"
+            "<b>Version 1.1.0</b><br><br>"
             "Abrela works with King Gizzard & The Lizard Wizard albums from<br>"
             "<a href=\"https://bootleggizzard.bandcamp.com\">https://bootleggizzard.bandcamp.com</a><br>"
             "and<br>"
@@ -52,7 +52,7 @@ class WelcomeDialog(QDialog):
             "- <b>Default transitions</b> are all available - they're just the next track on any given album.<br>"
             "- <b>Custom transitions</b> are all defined manually, so future versions will include more of them.<br>"
             "- Custom transitions will only show up if you have downloaded the albums with those transitions.<br><br>"
-            "<b>List of all custom transitions currently available:</b><br>"
+            "<b>List of all albums with customs transitions, and list of all custom transitions currently available:</b><br>"
             "<a href=\"https://github.com/solbus/abrela/blob/main/TRANSITIONS.md\">https://github.com/solbus/abrela/blob/main/TRANSITIONS.md</a><br><br>"
             "If you set up Abrela with just some of the albums and then want to add more,<br>"
             "click the <b>Start Over</b> button under the list of all the albums.<br><br>"
@@ -63,7 +63,7 @@ class WelcomeDialog(QDialog):
             "- Discord server King Gizzcord: <b>@Solbus</b><br>"
             "- Reddit: <b>u/automation_kglw</b><br>"
             "- Email: <b>kglwautomation@gmail.com</b><br><br>"
-            "I'm super open to the idea of collaborators:<br>"
+            "I'm very open to the idea of collaborators:<br>"
             "- <b>Transition Makers:</b> Only basic audio editing experience needed to contribute!<br>"
             "- <b>Programmers:</b> Because I have no idea what I'm doing!<br>"
             "- <b>Graphic Artists:</b> Some visual assets for this could be nice!<br>"

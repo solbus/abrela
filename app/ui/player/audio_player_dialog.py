@@ -75,7 +75,7 @@ class AudioPlayerDialog(QDialog):
         self.play_button = QPushButton("Play")
         self.play_button.clicked.connect(self.toggle_play)
 
-        close_btn = QPushButton("x")
+        close_btn = QPushButton("X")
         close_btn.setFixedWidth(20)
         close_btn.clicked.connect(self.close)
 

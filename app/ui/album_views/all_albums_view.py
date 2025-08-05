@@ -82,7 +82,7 @@ class AllAlbumsView(QWidget):
         self.main_layout.addLayout(button_layout)
 
         # Version label right underneath
-        version_label = QLabel("1.0.2")
+        version_label = QLabel("1.1.0")
         version_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.main_layout.addWidget(version_label)
         self.setLayout(self.main_layout)

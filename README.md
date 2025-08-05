@@ -1,7 +1,7 @@
 # Abrela
 An unofficial & fan-made choose-your-own-adventure MP3 editor & mixer designed to work with King Gizzard & The Lizard Wizard albums from Bandcamp.
 
-**Current version: `1.0.2`** - download the EXE on the [Releases page](https://github.com/solbus/abrela/releases) - see [changelog](https://github.com/solbus/abrela/blob/main/CHANGELOG.md) for version update notes
+**Current version: `1.1.0`** - download the EXE on the [Releases page](https://github.com/solbus/abrela/releases) - see [changelog](https://github.com/solbus/abrela/blob/main/CHANGELOG.md) for version update notes
 
 **NOTE:** I have not yet obtained a code signing certificate for the packaged EXE, and Windows will likely warn you that the EXE is potentially unsafe until I do. I am looking into solutions for this, but as of right now, you will probably have to manually bypass a warning if you want to try Abrela. **Please feel free to reach out to me** if you have any questions about this.
 
@@ -33,9 +33,10 @@ Currently, custom transitions only include **slicing, linear fades, and overlays
 5. Select the album that has the track you want to start with
 6. Select the track you want to start with
 7. Select a series of transitions
-8. Click the "Done" button
-9. Select a save location
-10. Use "Start Over" if you download more albums after you set up the first time. Use "Update Data" if there is an newer version of `albums.json` available.
+8. Click the "Process and Play" button to process the selected series of tracks and play the entire output
+9. If you like it, click the "Done" button (otherwise, select a different series of tracks)
+9. Select a save location, then find the MP3 in that location when it's done
+10. Use "Start Over" if you download more albums after you already set up Abrela. Use "Update Data" if there is an newer version of `albums.json` available.
 
 ## A friendly reminder
 The spirit of the KGLW bootleggers is in **physical media**, so Abrela is intended for personal use only, or for those experimenting with intentions to create physical media with the bootlegger music.
