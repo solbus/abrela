@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import (
 )
 
 class UpdateDataDialog(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, current_version, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Update Album Data")
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowContextHelpButtonHint)
@@ -14,6 +14,10 @@ class UpdateDataDialog(QDialog):
         layout = QVBoxLayout()
         layout.setContentsMargins(10, 10, 10, 10)
         layout.setSpacing(10)
+
+        version_label = QLabel(f"Current albums.json version: {current_version}")
+        version_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(version_label)
 
         self.text_edit = QTextEdit()
         self.text_edit.setPlaceholderText("Paste new albums.json contents here")

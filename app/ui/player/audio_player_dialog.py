@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt, QUrl, QPoint
 from PyQt6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QToolTip,
-    QStyle, QStyleOptionSlider, QSlider
+    QStyle, QStyleOptionSlider, QSlider, QSizePolicy
 )
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 
@@ -60,6 +60,7 @@ class AudioPlayerDialog(QDialog):
             Qt.WindowType.FramelessWindowHint | Qt.WindowType.Dialog
         )
         self.setModal(False)
+        self.setSizeGripEnabled(True)
 
         self.media_player = QMediaPlayer(self)
         self.audio_output = QAudioOutput()
@@ -67,6 +68,7 @@ class AudioPlayerDialog(QDialog):
         self.media_player.setSource(QUrl.fromLocalFile(audio_path))
 
         self.slider = SeekSlider()
+        self.slider.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.slider.sliderMoved.connect(self.media_player.setPosition)
 
         self.time_label = QLabel("00:00 / 00:00")
@@ -89,6 +91,7 @@ class AudioPlayerDialog(QDialog):
         layout.addWidget(self.time_label)
         layout.addWidget(self.play_button, alignment=Qt.AlignmentFlag.AlignCenter)
         self.setLayout(layout)
+        self.setFixedHeight(self.sizeHint().height())
 
         self.media_player.positionChanged.connect(self.update_position)
         self.media_player.durationChanged.connect(self.update_duration)

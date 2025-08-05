@@ -140,7 +140,7 @@ class AllAlbumsView(QWidget):
         self.scroll_area.setWidget(self.container)
 
     def on_update_data_clicked(self):
-        dialog = UpdateDataDialog(self)
+        dialog = UpdateDataDialog(self.albums_manager.get_version(), self)
         if dialog.exec():
             data = dialog.get_data()
             if data:
