@@ -107,7 +107,7 @@ class TransitionsView(QWidget):
         timeline_layout.addWidget(self.total_label)
 
         bottom_hlayout = QHBoxLayout()
-        process_button = QPushButton("Process & Play")
+        process_button = QPushButton("Process and Play")
         process_button.clicked.connect(self.on_process_play_clicked)
         bottom_hlayout.addWidget(process_button)
         bottom_hlayout.addStretch(1)
