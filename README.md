@@ -24,9 +24,13 @@ Currently, custom transitions only include **slicing, linear fades, and overlays
 
 ## Current List of Custom Transitions
 [See list here](https://github.com/solbus/abrela/blob/main/TRANSITIONS.md)
+Also includes a list of all the albums that currently have at least one custom transition available.
+
+Check for updates to `albums.json` [here](https://github.com/solbus/abrela/blob/main/app/albums.json).
+Newer versions of `albums.json` will have more transitions - use the **Update Data** button in Abrela to overwrite `albums.json` without needing to update Abrela.
 
 ## Setup & Usage Guide
-1. Download KGLW albums from the [bootleg gizzard Bandcamp page](https://bootleggizzard.bandcamp.com/) and/or the [main band page](https://kinggizzard.bandcamp.com/) - MP3 format (**MP3 320 recommended** - MP3 V0 should work in theory, but only MP3 320 has been tested)
+1. Download KGLW albums from the [bootleg gizzard Bandcamp page](https://bootleggizzard.bandcamp.com/) and/or the [main band page](https://kinggizzard.bandcamp.com/) - MP3 format, **MP3 320 recommended**, MP3 V0 should work in theory, but only MP3 320 has been tested
 2. Extract each album's ZIP - this will give you one folder for each album
 3. Move all of the album folders to one shared folder
 4. Tell Abrela what folder you have all the albums in
