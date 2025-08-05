@@ -1,8 +1,14 @@
-from PyQt6.QtCore import pyqtSignal, Qt
+from PyQt6.QtCore import pyqtSignal, Qt, QThread
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (
     QFrame, QHBoxLayout, QLabel, QPushButton, QScrollArea, QVBoxLayout, QWidget
 )
+
+from app.ui.player.audio_player_dialog import AudioPlayerDialog
+from app.ui.common.loading_dialog import LoadingDialog
+from app.audio.mix_worker import MixWorker
+import os
+from copy import deepcopy
 
 from app.core.transitions_logic import (
     ms_to_mmss, find_track, get_current_track_data, add_track_to_timeline,
@@ -102,6 +108,10 @@ class TransitionsView(QWidget):
 
         bottom_hlayout = QHBoxLayout()
         bottom_hlayout.addStretch(1)
+        process_button = QPushButton("Process & Play")
+        process_button.clicked.connect(self.on_process_play_clicked)
+        bottom_hlayout.addWidget(process_button)
+        bottom_hlayout.addSpacing(20)
         done_button = QPushButton("Done")
         done_button.clicked.connect(self.done_clicked.emit)
         bottom_hlayout.addWidget(done_button)
@@ -320,3 +330,48 @@ class TransitionsView(QWidget):
             self.populate_table()
             self.update_timeline()
             self.table_widget.adjust_table_size()
+
+    # ------------------------------------------------------------------
+    def on_process_play_clicked(self):
+        """Generate the final mix to the cache directory and play it."""
+        # Prepare timeline entries with file paths
+        timeline_copy = deepcopy(self.timeline_entries)
+        shared_directory = self.settings_manager.settings.get("shared_directory")
+
+        for entry in timeline_copy:
+            if entry['type'] == 'track':
+                album_title = entry['album_title']
+                track_title = entry['track_title']
+                album, track_data = find_track(self.albums_manager, album_title, track_title)
+                track_file = track_data['track_file']
+                entry['file_path'] = os.path.join(shared_directory, album['directory'], track_file)
+
+        appdata = os.getenv('APPDATA') or os.path.expanduser('~')
+        cache_dir = os.path.join(appdata, 'Abrela')
+        os.makedirs(cache_dir, exist_ok=True)
+
+        self.loading_dialog = LoadingDialog(self)
+        self.loading_dialog.show()
+
+        self.thread = QThread(self)
+        self.worker = MixWorker(timeline_copy, 'long_mp3', cache_dir)
+        self.worker.moveToThread(self.thread)
+        self.worker.finished.connect(lambda: self.on_process_play_finished(cache_dir))
+        self.thread.started.connect(self.worker.run)
+        self.thread.start()
+
+    def on_process_play_finished(self, cache_dir):
+        self.thread.quit()
+        self.thread.wait()
+        self.loading_dialog.close()
+
+        out_path = os.path.join(cache_dir, 'final_mix.mp3')
+
+        main_window = self.window()
+        if main_window:
+            main_window.cached_mix_path = out_path
+            main_window.cached_timeline_entries = deepcopy(self.timeline_entries)
+
+        self.player_dialog = AudioPlayerDialog(out_path, parent=main_window)
+        self.player_dialog.show()
+

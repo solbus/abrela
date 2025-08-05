@@ -29,6 +29,10 @@ class MainWindow(QMainWindow):
         self.setup_flow_controller = SetupFlowController(self)
         self.navigation_controller = NavigationController(self)
 
+        # Cached mix info for Process & Play feature
+        self.cached_mix_path = None
+        self.cached_timeline_entries = None
+
         # UI Steps
         self.shared_directory_step = SharedDirectoryStep(
             flow_controller=self.setup_flow_controller,

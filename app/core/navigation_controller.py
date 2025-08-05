@@ -4,6 +4,8 @@ from app.ui.transitions.transitions_view import TransitionsView
 from app.ui.save_process.save_view import SaveView
 from app.ui.save_process.processing_view import ProcessingView
 from app.audio.mix_worker import MixWorker
+import shutil
+import os
 
 class NavigationController:
     def __init__(self, main_window):
@@ -105,8 +107,9 @@ class NavigationController:
 
     def start_processing_view(self, format_choice, save_dir):
          """
-         Creates and shows the ProcessingView, then spawns a worker thread to do
-         the audio export (or copy). When finished, calls on_processing_done().
+         Creates and shows the ProcessingView. If a cached mix exists that matches
+         the current timeline, simply copy it to the selected directory. Otherwise,
+         spawn a worker thread to build the mix.
          """
          # 1) Create a ProcessingView and show it
          self.main_window.processing_view = ProcessingView()
@@ -116,10 +119,23 @@ class NavigationController:
          self.main_window.stack.addWidget(self.main_window.processing_view)
          self.main_window.stack.setCurrentWidget(self.main_window.processing_view)
 
+         cached_path = getattr(self.main_window, 'cached_mix_path', None)
+         cached_timeline = getattr(self.main_window, 'cached_timeline_entries', None)
+         current_timeline = self.main_window.save_view.get_timeline_entries()
+
+         # If we already processed this timeline, reuse the cached file
+         if (format_choice == 'long_mp3' and cached_path and
+                 cached_timeline == current_timeline and os.path.isfile(cached_path)):
+             os.makedirs(save_dir, exist_ok=True)
+             dest = os.path.join(save_dir, 'final_mix.mp3')
+             shutil.copyfile(cached_path, dest)
+             self.main_window.processing_view.update_progress_external(100)
+             self.main_window.processing_view.show_done_message()
+             return
+
          # 2) Spin up a QThread + worker to do the export
          self.thread = QThread(self.main_window)
-         self.worker = MixWorker(self.main_window.save_view.get_timeline_entries(),
-                                 format_choice, save_dir)
+         self.worker = MixWorker(current_timeline, format_choice, save_dir)
          self.worker.moveToThread(self.thread)
 
          # Connect signals
