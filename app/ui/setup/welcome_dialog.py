@@ -47,7 +47,7 @@ class WelcomeDialog(QDialog):
             "<b>2.</b> Extract each album's ZIP - this will create one folder for each album (you can delete the ZIPs after).<br>"
             "<b>3.</b> After extracting, move all of the album folders to one shared folder.<br>"
             "<b>4.</b> Close this welcome message and continue in the main window.<br><br>"
-            "Tutorial video: <a href=\"https://youtu.be/AEIggCPhB8k\">https://youtu.be/AEIggCPhB8k</a><br><br>"
+            "Tutorial video: <a href=\"https://youtu.be/t-bn6YxKrEo\">https://youtu.be/t-bn6YxKrEo</a><br><br>"
             "---<br><br>"
             "List of albums that currently have at least one custom transition available:<br>"
             "<a href=\"https://github.com/solbus/abrela/blob/main/TRANSITIONS.md\">https://github.com/solbus/abrela/blob/main/TRANSITIONS.md</a><br><br>"

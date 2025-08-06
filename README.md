@@ -7,7 +7,7 @@ An unofficial & fan-made automated MP3 editor, mixer, and player designed to wor
 
 **NOTE:** I have not yet obtained a code signing certificate for the packaged EXE, and Windows will likely warn you that the EXE is potentially unsafe until I do. I am looking into solutions for this, but as of right now, you will probably have to manually bypass a warning if you want to try Abrela. **Please feel free to reach out to me** if you have any questions about this.
 
-Tutorial video for setup & usage: https://youtu.be/AEIggCPhB8k
+Tutorial video for setup & usage: https://youtu.be/t-bn6YxKrEo
 
 ## Project Dependencies
 - [**PyQt6**](https://www.riverbankcomputing.com/static/Docs/PyQt6/) (6.8.0) - *UI*
