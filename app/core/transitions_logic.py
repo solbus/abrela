@@ -1,3 +1,6 @@
+import os
+
+
 def ms_to_mmss(ms):
     ms = int(round(ms))
     seconds = ms // 1000
@@ -81,7 +84,22 @@ def compute_segments_from_timeline(timeline_entries):
     current_timeline_time = 0
 
     for i, entry in enumerate(timeline_entries):
-        track_duration = entry['duration']
+        track_duration = entry.get('duration', 0)
+
+        file_path = entry.get('file_path')
+        if file_path and os.path.exists(file_path):
+            if 'actual_duration_ms' in entry:
+                track_duration = entry['actual_duration_ms']
+            else:
+                try:
+                    from app.audio.audio_processor import load_audio
+                    # Keep timeline math aligned with the actual audio by
+                    # using the real file length instead of the stored metadata.
+                    track_duration = len(load_audio(file_path))
+                    entry['actual_duration_ms'] = track_duration
+                except Exception:
+                    pass
+
         current_offset = entry.get('starting_offset', 0)
 
         transition_data = entry.get('transition_data')
