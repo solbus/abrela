@@ -1,5 +1,9 @@
 import os
 
+# Cache real audio lengths so repeated timeline calculations don't
+# reload the same files over and over.
+_DURATION_CACHE: dict[str, int] = {}
+
 
 def ms_to_mmss(ms):
     ms = int(round(ms))
@@ -79,28 +83,33 @@ def load_initial_timeline(albums_manager, current_album_title, current_track_ind
         'transition_data': None
     }]
 
+def _get_track_duration(entry):
+    """Return the real duration for a timeline entry's audio file.
+
+    Falls back to the metadata duration if loading fails."""
+    file_path = entry.get('file_path')
+    if file_path and os.path.exists(file_path):
+        cached = _DURATION_CACHE.get(file_path)
+        if cached is not None:
+            return cached
+        try:
+            from app.audio.audio_processor import load_audio
+            duration = len(load_audio(file_path))
+            _DURATION_CACHE[file_path] = duration
+            return duration
+        except Exception:
+            pass
+    return entry.get('duration', 0)
+
+
 def compute_segments_from_timeline(timeline_entries):
     segs = []
     current_timeline_time = 0
+    next_start_offset = 0
 
     for i, entry in enumerate(timeline_entries):
-        track_duration = entry.get('duration', 0)
-
-        file_path = entry.get('file_path')
-        if file_path and os.path.exists(file_path):
-            if 'actual_duration_ms' in entry:
-                track_duration = entry['actual_duration_ms']
-            else:
-                try:
-                    from app.audio.audio_processor import load_audio
-                    # Keep timeline math aligned with the actual audio by
-                    # using the real file length instead of the stored metadata.
-                    track_duration = len(load_audio(file_path))
-                    entry['actual_duration_ms'] = track_duration
-                except Exception:
-                    pass
-
-        current_offset = entry.get('starting_offset', 0)
+        track_duration = _get_track_duration(entry)
+        current_offset = next_start_offset
 
         transition_data = entry.get('transition_data')
         if transition_data:
@@ -113,13 +122,13 @@ def compute_segments_from_timeline(timeline_entries):
                 'track_title': entry['track_title'],
                 'start_ms': current_timeline_time,
                 'end_ms': current_timeline_time + played_track_length,
-                'full_duration_ms': played_track_length
+                'full_duration_ms': played_track_length,
             })
             current_timeline_time += played_track_length
 
             # 2) Render the “transition” segment
             source_fade_out = get_transition_value(transition_data, 'source_fade_out_duration', 0)
-            target_fade_in  = get_transition_value(transition_data, 'target_fade_in_duration', 0)
+            target_fade_in = get_transition_value(transition_data, 'target_fade_in_duration', 0)
             transition_time = source_fade_out + target_fade_in
             segs.append({
                 'segment_type': 'transition',
@@ -128,13 +137,9 @@ def compute_segments_from_timeline(timeline_entries):
             })
             current_timeline_time += transition_time
 
-            # 3) Calculate the “starting_offset” for the next track
+            # 3) Calculate the starting offset for the next track
             target_fade_in_ts = get_transition_value(transition_data, 'target_fade_in_timestamp', 0)
-            crossfade_consumed = target_fade_in_ts + source_fade_out + target_fade_in
-
-            if i + 1 < len(timeline_entries):
-                timeline_entries[i+1]['starting_offset'] = crossfade_consumed
-
+            next_start_offset = target_fade_in_ts + source_fade_out + target_fade_in
         else:
             # No transition; just play the rest of the track
             played_track_length = track_duration - current_offset
@@ -144,9 +149,10 @@ def compute_segments_from_timeline(timeline_entries):
                 'track_title': entry['track_title'],
                 'start_ms': current_timeline_time,
                 'end_ms': current_timeline_time + played_track_length,
-                'full_duration_ms': played_track_length
+                'full_duration_ms': played_track_length,
             })
             current_timeline_time += played_track_length
+            next_start_offset = 0
 
     return segs
 
