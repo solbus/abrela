@@ -47,7 +47,7 @@ class ProcessingView(QWidget):
         self.exit_button.clicked.connect(self.exit_requested.emit)
         self.exit_button.hide()
 
-        self.start_over_button = QPushButton("Start over")
+        self.start_over_button = QPushButton("Start Over")
         self.start_over_button.clicked.connect(self.start_over_requested.emit)
         self.start_over_button.hide()
 

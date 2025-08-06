@@ -1,5 +1,7 @@
 # Abrela
-An unofficial & fan-made choose-your-own-adventure MP3 editor & mixer designed to work with King Gizzard & The Lizard Wizard albums from Bandcamp.
+An unofficial & fan-made automated MP3 editor, mixer, and player designed to work with King Gizzard & The Lizard Wizard albums from Bandcamp.
+- `INPUT:` KGLW albums from Bandcamp & a user-selected series of tracks/transitions.
+- `OUTPUT:` A new MP3 file containing the user-selected playlist of tracks, with transitions between tracks automatically edited & mixed.
 
 **Current version: `1.1.0`** - download the EXE on the [Releases page](https://github.com/solbus/abrela/releases) - see [changelog](https://github.com/solbus/abrela/blob/main/CHANGELOG.md) for version update notes
 
@@ -22,25 +24,25 @@ Abrela works with transition logic, specifially **default transitions** and **cu
 
 Currently, custom transitions only include **slicing, linear fades, and overlays**. Abrela is configured to chain transitions automatically, so the user can select any mix of available default and custom transitions, and the final MP3 is built as a series of these transitions. As more custom transitions continue to be added in future versions, an exponentially large number of track playlist combinations will be creatable.
 
-## Current List of Custom Transitions
+## Current List of Albums with Custom Transitions
 [See list here](https://github.com/solbus/abrela/blob/main/TRANSITIONS.md)
-Also includes a list of all the albums that currently have at least one custom transition available.
+Also lists all transitions currently available, track-by-track.
 
 Check for updates to `albums.json` [here](https://github.com/solbus/abrela/blob/main/app/albums.json).
 Newer versions of `albums.json` will have more transitions - use the **Update Data** button in Abrela to overwrite `albums.json` without needing to update Abrela.
 
 ## Setup & Usage Guide
 1. Download KGLW albums from the [bootleg gizzard Bandcamp page](https://bootleggizzard.bandcamp.com/) and/or the [main band page](https://kinggizzard.bandcamp.com/) - MP3 format, **MP3 320 recommended**, MP3 V0 should work in theory, but only MP3 320 has been tested
-2. Extract each album's ZIP - this will give you one folder for each album
-3. Move all of the album folders to one shared folder
-4. Tell Abrela what folder you have all the albums in
-5. Select the album that has the track you want to start with
-6. Select the track you want to start with
-7. Select a series of transitions
-8. Click the "Process and Play" button to process the selected series of tracks and play the entire output
-9. If you like it, click the "Done" button (otherwise, select a different series of tracks)
-9. Select a save location, then find the MP3 in that location when it's done
-10. Use "Start Over" if you download more albums after you already set up Abrela. Use "Update Data" if there is an newer version of `albums.json` available.
+1. Extract each album's ZIP - this will give you one folder for each album
+1. Move all of the album folders to one shared folder
+1. Tell Abrela what folder you have all the albums in
+1. Select the album that has the track you want to start with
+1. Select the track you want to start with
+1. Select a series of transitions
+1. Click the "Process and Play" button to process the selected series of tracks and play the entire output
+1. If you like it, click the "Done" button (otherwise, select a different series of tracks)
+1. Select a save location, then find the MP3 in that location when it's done
+1. Use "Start Over" if you download more albums after you already set up Abrela. Use "Update Data" if there is an newer version of `albums.json` available.
 
 ## A friendly reminder
 The spirit of the KGLW bootleggers is in **physical media**, so Abrela is intended for personal use only, or for those experimenting with intentions to create physical media with the bootlegger music.
