@@ -24,7 +24,7 @@ class SharedDirectoryStep(QWidget):
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # Instruction label, centered
-        label = QLabel("What folder do you have all the album folders in?<br><b>Important:</b> All ZIPs must be extracted first!")
+        label = QLabel("What folder do you have the album folders in?<br><b>Important:</b> All ZIPs must be extracted first!")
         label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(label)
 
